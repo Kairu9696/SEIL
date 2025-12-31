@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy New Year Seil</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .page {
+      display: none;
+      width: 90%;
+      max-width: 800px;
+      height: 80vh;
+      background: #eaeaea;
+      padding: 40px;
+      border-radius: 15px;
+      text-align: center;
+      position: relative; /* important for random GIF positioning */
+      overflow-y: auto;
+    }
+
+    .active {
+      display: block;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    .button-zone {
+      margin-top: 50px;
+      height: 200px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .yes-btn, .no-btn {
+      padding: 14px 34px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: transform 0.2s ease;
+    }
+
+    .yes-btn {
+      background: #ff2fcf;
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
+
+    .no-btn {
+      background: #f1f1f1;
+      color: #555;
+      position: relative;
+      z-index: 2;
+    }
+
+    .yes-btn:hover, .no-btn:hover, .continue-btn:hover, .back-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .message {
+      max-height: 55vh;
+      overflow-y: auto;
+      margin: 20px 0;
+      padding: 10px;
+    }
+
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+      overflow-y: auto;
+      padding-bottom: 20px;
+    }
+
+    .gallery img {
+      width: 100%;
+      max-width: 240px;
+      height: auto;
+      border-radius: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    .continue-btn, .back-btn {
+      padding: 14px 34px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      background: #ff2fcf;
+      color: white;
+      position: relative;
+      margin-top: 30px;
+      transition: transform 0.2s ease;
+    }
+
+    .gif-random {
+      width: 100px;
+      height: auto;
+      border-radius: 10px;
+      position: absolute; /* allows random placement */
+    }
+  </style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="best-part.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h2>Happy New Year Seil 🎆</h2>
+  <p>Do you want to start 2026 with me?</p>
+  <div class="button-zone" id="buttonZone">
+    <button class="yes-btn" onclick="startMusic(); goToPage(2)">YES 💖</button>
+    <button class="no-btn" id="noBtn">NO 🙃</button>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <h2>Happy New Year Seil 💗</h2>
+  <div class="message">
+    <p>
+      Yay! 💕 I kinda knew it.
+
+You really make everything feel lighter and warmer just by being you. I’m so thankful for the laughs, the games, the late-night talks, and even the quiet moments we shared. Those simple things actually mean a lot to me.
+
+I didn’t expect to meet someone like you this year, but I’m really glad I did. You became one of my favorite parts of my days, and I honestly enjoy getting to know you more every time we talk. I want to know you better—your stories, your little habits, the things that make you happy, even the things that make your days hard.
+
+I don’t know what the future holds, but I know I want to keep choosing you—one day at a time. I’m excited to see where this goes, and I’m really happy I get to start this new year with you. 💫
+
+
+    </p>
+  </div>
+  <button class="continue-btn" onclick="goToPage(3)">Continue ➡️</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <h2>Happy New Year 💖</h2>
+  <p>Thank you for the memories. More pictures to come—maybe next year, our real photo will be right there. 🎮✨</p>
+  <div class="gallery">
+    <img src="firstpic.png" alt="Tropical dock scene">
+    <img src="2ndpic.png" alt="Snowy holiday scene">
+    <img src="3rdpic.png" alt="Pink-haired character">
+    <img src="4thpic.png" alt="duo">
+    <img src="5thpic.png" alt="mwaah">
+    <img src="6thpic.png" alt="mwa">
+  </div>
+  <button class="back-btn" onclick="goToPage(2)">Back 🔙</button>
+</div>
+
+<script>
+  function goToPage(page) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+    document.getElementById("page" + page).classList.add("active");
+  }
+
+  function startMusic() {
+    const music = document.getElementById("bgMusic");
+    music.play().catch(err => console.log("Playback blocked:", err));
+  }
+
+  const noBtn = document.getElementById("noBtn");
+  const page1 = document.getElementById("page1");
+
+  let noClickCount = 0;
+
+  const gifs = [
+    "1stcat.webp",
+    "2ndcat.webp",
+    "3rdcat.webp",
+    "4thcat.webp",
+    "5thcat.gif",
+    "6thcat.webp",
+    "7thcat.webp",
+    "8thcat.webp",
+    "9thcat.webp",
+    "10thcat.webp"
+    
+  ];
+
+  noBtn.addEventListener("click", () => {
+    // Move NO button randomly using transform
+    const x = Math.random() * 100 - 50;
+    const y = Math.random() * 100 - 50;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+    // Show GIF at random location
+    if (noClickCount < gifs.length) {
+      const gif = document.createElement("img");
+      gif.src = gifs[noClickCount];
+      gif.className = "gif-random";
+
+      // random position inside page1
+      const maxX = page1.clientWidth - 120; // 100px gif + margin
+      const maxY = page1.clientHeight - 120;
+      const randX = Math.random() * maxX;
+      const randY = Math.random() * maxY;
+
+      gif.style.left = randX + "px";
+      gif.style.top = randY + "px";
+
+      page1.appendChild(gif);
+    }
+
+    noClickCount++;
+  });
+</script>
+
+</body>
+</html>
